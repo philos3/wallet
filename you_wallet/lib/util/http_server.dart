@@ -34,17 +34,17 @@ class Http {
 
     // 请求拦截器
     _dio.interceptors
-        .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
+        .add(InterceptorsWrapper(onRequest: (RequestOptions options,RequestInterceptorHandler handler) async {
       // Do something before request is sent
       return options; //continue
       // If you want to resolve the request with some custom data，
       // you can return a `Response` object or return `dio.resolve(data)`.
       // If you want to reject the request with a error message,
       // you can return a `DioError` object or return `dio.reject(errMsg)`
-    }, onResponse: (Response response) async {
+    }, onResponse: (Response response,ResponseInterceptorHandler handler) async {
       // Do something with response data
       return response; // continue
-    }, onError: (DioError e) async {
+    }, onError: (DioError e,ErrorInterceptorHandler handler) async {
       // Do something with response error
       return e; //continue
     }));

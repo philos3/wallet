@@ -8,7 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:youwallet/widgets/customButton.dart';
 
 // 类的名字需要大写字母开头
-class tokenList extends StatelessWidget {
+class tokenList extends StatefulWidget {
   List arr = [];
   String network = "ropsten";
   Map currentWalletObject = {};
@@ -16,14 +16,22 @@ class tokenList extends StatelessWidget {
       {Key key, this.arr, this.network = "ropsten", this.currentWalletObject})
       : super(key: key);
 
-  final SlidableController slidableController = SlidableController();
+  @override
+  State<tokenList> createState() => _tokenListState();
+}
+
+class _tokenListState extends State<tokenList> with TickerProviderStateMixin{
+
+
+
+  // final SlidableController slidableController = SlidableController(this);
 
   @override
   Widget build(BuildContext context) {
     List filterArr = [];
-    this.arr.forEach((element) {
+    widget.arr.forEach((element) {
       // 必须当前你选择的网络和当前你的钱包地址
-      if (element['wallet'] == this.currentWalletObject['address']) {
+      if (element['wallet'] == widget.currentWalletObject['address']) {
         filterArr.add(element);
       }
     });
@@ -59,21 +67,25 @@ class tokenList extends StatelessWidget {
       balance: item['balance'],
     );
     return Slidable(
-      controller: slidableController,
-      actionPane: SlidableScrollActionPane(), //滑出选项的面板 动画
-      actionExtentRatio: 0.25,
+      // controller: slidableController,
+      // actionPane: SlidableScrollActionPane(), //滑出选项的面板 动画
       child: TokenCard(data: cardData),
-      secondaryActions: <Widget>[
-        //右侧按钮列表
-        IconSlideAction(
-          caption: '删除',
-          // color: Color(0xfff56c6c),
-          icon: Icons.delete,
-          onTap: () async {
-            await Provider.of<Token>(context).remove(item);
-          },
-        )
-      ],
+      startActionPane: ActionPane(
+        extentRatio: 0.25,
+        motion: const ScrollMotion(),
+        dismissible: DismissiblePane(onDismissed: () {}),
+        children:  [
+          //右侧按钮列表
+          SlidableAction(
+            label: '删除',
+            // color: Color(0xfff56c6c),
+            icon: Icons.delete,
+            onPressed: (BuildContext context)  async {
+              await Provider.of<Token>(context).remove(item);
+            },
+          )
+        ],
+      ),
     );
   }
 }

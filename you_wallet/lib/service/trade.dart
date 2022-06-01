@@ -340,7 +340,7 @@ class Trade {
     };
 
     var rsp = await client.post(
-        "https://ropsten.infura.io/v3/37caa7b8b2c34ced8819de2b3853c8a2",
+        Uri.parse("https://ropsten.infura.io/v3/37caa7b8b2c34ced8819de2b3853c8a2"),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(payload));
     Map result = jsonDecode(rsp.body);
@@ -428,7 +428,7 @@ class Trade {
       "id": DateTime.now().millisecondsSinceEpoch
     };
     var rpcUrl = await Global.rpcUrl();
-    var rsp = await client.post(rpcUrl,
+    var rsp = await client.post(Uri.parse(rpcUrl),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(payload));
     Map result = jsonDecode(rsp.body);
@@ -517,7 +517,7 @@ class Trade {
       "id": DateTime.now().millisecondsSinceEpoch
     };
     var rpcUrl = await Global.rpcUrl();
-    var rsp = await client.post(rpcUrl,
+    var rsp = await client.post(Uri.parse(rpcUrl),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(payload));
     Map result = jsonDecode(rsp.body);
@@ -577,7 +577,7 @@ class Trade {
       "id": DateTime.now().millisecondsSinceEpoch
     };
     var rpcUrl = await Global.rpcUrl();
-    var rsp = await client.post(rpcUrl,
+    var rsp = await client.post(Uri.parse(rpcUrl),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(payload));
     Map result = jsonDecode(rsp.body);
@@ -687,7 +687,7 @@ class Trade {
     };
 
     var rsp = await client.post(
-        "https://ropsten.infura.io/v3/37caa7b8b2c34ced8819de2b3853c8a2",
+        Uri.parse("https://ropsten.infura.io/v3/37caa7b8b2c34ced8819de2b3853c8a2"),
         headers: {'Content-Type': 'application/json'},
         body: json.encode(payload));
     Map result = jsonDecode(rsp.body);

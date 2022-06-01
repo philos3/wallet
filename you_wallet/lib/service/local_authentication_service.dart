@@ -36,10 +36,11 @@ class LocalAuthenticationService {
             // Touch ID.
           }
         }
-        isAuthenticated = await _auth.authenticateWithBiometrics(
+        isAuthenticated = await _auth.authenticate(
           localizedReason: 'authenticate to access',
-          useErrorDialogs: true,
-          stickyAuth: true,
+          options:  AuthenticationOptions(
+              useErrorDialogs: true,
+            stickyAuth: true,),
         );
         print(isAuthenticated);
       } on PlatformException catch (e) {

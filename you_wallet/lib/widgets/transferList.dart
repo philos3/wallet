@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:youwallet/model/viewModel.dart';
 import 'package:youwallet/widgets/modalDialog.dart';
 import 'package:youwallet/widgets/loadingDialog.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ import 'package:youwallet/util/number_format.dart';
 import 'package:youwallet/global.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:youwallet/widgets/listEmpty.dart';
+import 'package:youwallet/widgets/tokenCard.dart';
 
 class transferList extends StatefulWidget {
   transferList({Key key}) : super(key: key);
@@ -20,7 +22,7 @@ class transferList extends StatefulWidget {
 }
 
 class TransferListState extends State<transferList> {
-  final SlidableController slidableController = SlidableController();
+  // final SlidableController slidableController = SlidableController();
   List arr = []; // 控制当前页面中显示的兑换数组
   Map filledAmount = {};
   String currentTab = '当前兑换';
@@ -76,47 +78,59 @@ class TransferListState extends State<transferList> {
 
   // 给数据列表中的每一个项包裹一层滑动组件
   Widget buildsilde(item, context) {
+    TokenCardViewModel cardData = TokenCardViewModel(
+      bankName: item['name'],
+      bankLogoUrl: 'assets/images/icon.png',
+      cardType: '以太坊',
+      cardNumber: item['address'],
+      cardColors: [Color(0xFFF17B68), Color(0xFFE95F66)],
+      balance: item['balance'],
+    );
     return Slidable(
-      controller: slidableController,
-      actionPane: SlidableScrollActionPane(), //滑出选项的面板 动画
-      actionExtentRatio: 0.25,
-      child: this.buildItem(item, context),
-      secondaryActions: <Widget>[
-        //右侧按钮列表
-        IconSlideAction(
-          caption: '订单详情',
-          color: Colors.blue,
-          icon: Icons.assignment,
-          onTap: () {
-            //print(item);
-            //this.copyHash(item);
-            Navigator.pushNamed(context, "order_detail", arguments: item);
-          },
-        ),
-        this.buildRightAction(context, item)
-      ],
+      // controller: slidableController,
+      // actionPane: SlidableScrollActionPane(), //滑出选项的面板 动画
+      child: TokenCard(data: cardData),
+      startActionPane: ActionPane(
+        extentRatio: 0.25,
+        motion: const ScrollMotion(),
+        dismissible: DismissiblePane(onDismissed: () {}),
+        children:  [
+          //右侧按钮列表
+          SlidableAction(
+            label: '订单详情',
+            backgroundColor: Colors.blue,
+            icon: Icons.assignment,
+            onPressed: (BuildContext context)  {
+              //print(item);
+              //this.copyHash(item);
+              Navigator.pushNamed(context, "order_detail", arguments: item);
+            },
+          ),
+          this.buildRightAction(context, item)
+        ],
+      ),
     );
   }
 
   // 构建滑动后右侧出现的小部件
   Widget buildRightAction(context, item) {
     if (item['status'] == '挂单中' || item['status'] == '打包中') {
-      return IconSlideAction(
-        caption: '撤销',
-        color: Colors.red,
+      return SlidableAction(
+        label: '撤销',
+        backgroundColor: Colors.red,
         icon: Icons.undo,
-        closeOnTap: true,
-        onTap: () {
+        autoClose: true,
+        onPressed: (BuildContext context) {
           this.cancelTrade(context, item);
         },
       );
     } else {
-      return IconSlideAction(
-        caption: '删除',
-        color: Colors.red,
+      return SlidableAction(
+        label: '删除',
+        backgroundColor: Colors.red,
         icon: Icons.delete,
-        closeOnTap: true,
-        onTap: () {
+        autoClose: true,
+        onPressed: (BuildContext context) {
           this.delTrade(context, item);
         },
       );

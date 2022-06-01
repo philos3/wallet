@@ -48,7 +48,7 @@ class _DebugPageState extends State<DebugPage> {
   void _onImageSaveButtonPressed() async {
     print("_onImageSaveButtonPressed");
     var response = await http
-        .get('http://upload.art.ifeng.com/2017/0425/1493105660290.jpg');
+        .get(Uri.parse('http://upload.art.ifeng.com/2017/0425/1493105660290.jpg'));
 
     debugPrint(response.statusCode.toString());
 
@@ -79,10 +79,10 @@ class _DebugPageState extends State<DebugPage> {
   Future<Null> _authenticate() async {
     bool authenticated = false;
     try {
-      authenticated = await auth.authenticateWithBiometrics(
+      authenticated = await auth.authenticate(
           localizedReason: '扫描指纹进行身份验证',
-          useErrorDialogs: true,
-          stickyAuth: false);
+          options:AuthenticationOptions(useErrorDialogs: true,
+          stickyAuth: false));
     } catch (e) {
       print(e);
     }

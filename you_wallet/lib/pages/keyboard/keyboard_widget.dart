@@ -1,4 +1,4 @@
-import 'package:youwallet/pages/keyboard/pay_password.dart';
+import 'package:youwallet/pages/keyboard/pay_password.dart' as pay;
 import 'package:youwallet/pages/keyboard/custom_keyboard_button.dart';
 import 'package:flutter/material.dart';
 
@@ -23,52 +23,52 @@ class MyKeyboardStat extends State<MyKeyboard> {
   ///回调函数执行体
   var backMethod;
   void onCommitChange() {
-    widget.callback(new KeyEvent("commit"));
+    widget.callback(new pay.KeyEvent("commit"));
   }
 
   void onOneChange(BuildContext cont) {
-    widget.callback(new KeyEvent("1"));
+    widget.callback(new pay.KeyEvent("1"));
   }
 
   void onTwoChange(BuildContext cont) {
-    widget.callback(new KeyEvent("2"));
+    widget.callback(new pay.KeyEvent("2"));
   }
 
   void onThreeChange(BuildContext cont) {
-    widget.callback(new KeyEvent("3"));
+    widget.callback(new pay.KeyEvent("3"));
   }
 
   void onFourChange(BuildContext cont) {
-    widget.callback(new KeyEvent("4"));
+    widget.callback(new pay.KeyEvent("4"));
   }
 
   void onFiveChange(BuildContext cont) {
-    widget.callback(new KeyEvent("5"));
+    widget.callback(new pay.KeyEvent("5"));
   }
 
   void onSixChange(BuildContext cont) {
-    widget.callback(new KeyEvent("6"));
+    widget.callback(new pay.KeyEvent("6"));
   }
 
   void onSevenChange(BuildContext cont) {
-    widget.callback(new KeyEvent("7"));
+    widget.callback(new pay.KeyEvent("7"));
   }
 
   void onEightChange(BuildContext cont) {
-    widget.callback(new KeyEvent("8"));
+    widget.callback(new pay.KeyEvent("8"));
   }
 
   void onNineChange(BuildContext cont) {
-    widget.callback(new KeyEvent("9"));
+    widget.callback(new pay.KeyEvent("9"));
   }
 
   void onZeroChange(BuildContext cont) {
-    widget.callback(new KeyEvent("0"));
+    widget.callback(new pay.KeyEvent("0"));
   }
 
   /// 点击删除
   void onDeleteChange() {
-    widget.callback(new KeyEvent("del"));
+    widget.callback(new pay.KeyEvent("del"));
   }
 
   @override

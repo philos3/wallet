@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youwallet/pages/keyboard/CustomJPasswordFieldWidget.dart';
 import 'package:youwallet/pages/keyboard/keyboard_widget.dart';
-import 'package:youwallet/pages/keyboard/pay_password.dart';
+import 'package:youwallet/pages/keyboard/pay_password.dart' as pay;
 
 
 /// 支付密码  +  自定义键盘
@@ -88,7 +88,7 @@ class keyboardState extends State<main_keyboard> {
     Navigator.of(context).pop(pwdData);
   }
 
-  void _onKeyDown(KeyEvent data){
+  void _onKeyDown(pay.KeyEvent data){
     print(data.key);
     if (data.isDelete()) {
       if (pwdData.length > 0) {

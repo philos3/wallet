@@ -71,10 +71,7 @@ class _ContainerPageState extends State<TabsPage> {
               width: 30.0,
               height: 30.0,
             ),
-            title: Text(
-              item.name,
-              style: TextStyle(fontSize: 12.0),
-            ),
+            label: item.name,
             activeIcon: Image.asset(item.activeIcon, width: 26.0, height: 26.0))
           ).toList();
     }

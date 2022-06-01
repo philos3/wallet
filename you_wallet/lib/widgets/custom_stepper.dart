@@ -398,9 +398,12 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
 
   Widget _buildVerticalControls() {
     if (widget.controlsBuilder != null)
-      return widget.controlsBuilder(context,
+      return widget.controlsBuilder(context,ControlsDetails(
+        currentStep: widget.currentStep,
+          stepIndex: widget.currentStep,
           onStepContinue: widget.onStepContinue,
-          onStepCancel: widget.onStepCancel);
+          onStepCancel: widget.onStepCancel
+      ));
 
     Color cancelColor;
 
@@ -458,12 +461,12 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
       case StepState.indexed:
       case StepState.editing:
       case StepState.complete:
-        return textTheme.body2;
+        return textTheme.bodyText2;
       case StepState.disabled:
-        return textTheme.body2
+        return textTheme.bodyText2
             .copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
       case StepState.error:
-        return textTheme.body2
+        return textTheme.bodyText2
             .copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
     }
     return null;
@@ -715,7 +718,7 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
     assert(debugCheckHasMaterial(context));
     assert(debugCheckHasMaterialLocalizations(context));
     assert(() {
-      if (context.ancestorWidgetOfExactType(Stepper) != null)
+      if (context.findAncestorWidgetOfExactType<Stepper>() != null)
         throw FlutterError(
             'Steppers must not be nested. The material specification advises '
                 'that one should avoid embedding steppers within steppers. '
